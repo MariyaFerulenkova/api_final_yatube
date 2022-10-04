@@ -22,7 +22,7 @@
 ### Примеры запросов
 - POST: api/v1/posts/  
 Request samples 
-```sh
+```json
 {
 "text": "string",
 "image": "string",
@@ -30,7 +30,7 @@ Request samples
 } 
 ```
 Response samples
-```sh
+```json
 {
 "id": 0,
 "author": "string",
@@ -42,7 +42,7 @@ Response samples
 ```
 - PUT: api/v1/posts/{id}/
 Request samples 
-```sh
+```json
 {
 "text": "string",
 "image": "string",
@@ -50,7 +50,7 @@ Request samples
 }
 ```
 Response samples
-```sh
+```json
 {
 "id": 0,
 "author": "string",
@@ -62,13 +62,13 @@ Response samples
 ```
 - POST: api/v1/posts/{post_id}/comments/
 Request samples
-```sh
+```json
 {
 "text": "string"
 }
 ```
 Response samples
-```sh
+```json
 {
 "id": 0,
 "author": "string",
@@ -79,13 +79,13 @@ Response samples
 ```
 - POST: api/v1/follow/
 Request samples 
-```sh
+```json
 {
 "following": "string"
 }
 ```
 Response samples
-```sh
+```json
 {
 "user": "string",
 "following": "string"
@@ -114,3 +114,12 @@ python manage.py migrate
 ```sh
 python manage.py runserver
 ```
+
+### Основные использованные технологии
+- Python 3.7.9
+- Django 2.2.16
+- Djangorestframework 3.12.4
+- Djangorestframework-simplejwt 4.7.2
+
+### Авторы
+ЯндексПрактикум, Мария Феруленкова

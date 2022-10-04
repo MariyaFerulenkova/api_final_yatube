@@ -5,15 +5,14 @@ from rest_framework.permissions import IsAuthenticated
 
 from posts.models import Follow, Group, Post
 
-from .permissions import IsAuthor
-# IsNotSelfFollowing
+from .permissions import IsAuthorOrIsAuthenticated
 from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
                           PostSerializer)
 
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = (IsAuthor,)
+    permission_classes = (IsAuthorOrIsAuthenticated,)
 
     def get_post(self):
         post_id = self.kwargs.get('post_id')
@@ -44,9 +43,7 @@ class FollowViewSet(CreateListViewSet):
     search_fields = ('user__username', 'following__username')
 
     def get_queryset(self):
-        return Follow.objects.filter(
-            user=self.request.user
-        )
+        return self.request.user.follower.all()
 
     def perform_create(self, serializer):
         serializer.save(
@@ -62,7 +59,7 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (IsAuthor,)
+    permission_classes = (IsAuthorOrIsAuthenticated,)
     pagination_class = LimitOffsetPagination
 
     def perform_create(self, serializer):
